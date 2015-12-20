@@ -15,101 +15,101 @@ import javax.swing.plaf.basic.BasicLabelUI;
 
 public class VerticalLabelUI extends BasicLabelUI {
 
-	private boolean clockwise = false;
+    private boolean clockwise = false;
 
-	Rectangle verticalViewR = new Rectangle();
-	Rectangle verticalIconR = new Rectangle();
-	Rectangle verticalTextR = new Rectangle();
+    Rectangle verticalViewR = new Rectangle();
+    Rectangle verticalIconR = new Rectangle();
+    Rectangle verticalTextR = new Rectangle();
 
-	protected static VerticalLabelUI verticalLabelUI = new VerticalLabelUI();
+    protected static VerticalLabelUI verticalLabelUI = new VerticalLabelUI();
 
-	private static final VerticalLabelUI SAFE_VERTICAL_LABEL_UI = new VerticalLabelUI();
+    private static final VerticalLabelUI SAFE_VERTICAL_LABEL_UI = new VerticalLabelUI();
 
-	public VerticalLabelUI() {
-	}
+    public VerticalLabelUI() {
+    }
 
-	public VerticalLabelUI(boolean clockwise) {
-		this.clockwise = clockwise;
-	}
+    public VerticalLabelUI(boolean clockwise) {
+        this.clockwise = clockwise;
+    }
 
-	public static ComponentUI createUI(JComponent c) {
-		if (System.getSecurityManager() != null) {
-			return SAFE_VERTICAL_LABEL_UI;
-		}
-		return verticalLabelUI;
-	}
+    public static ComponentUI createUI(JComponent c) {
+        if (System.getSecurityManager() != null) {
+            return SAFE_VERTICAL_LABEL_UI;
+        }
+        return verticalLabelUI;
+    }
 
-	public int getBaseline(JComponent c, int width, int height) {
-		super.getBaseline(c, width, height);
-		return -1;
-	}
+    public int getBaseline(JComponent c, int width, int height) {
+        super.getBaseline(c, width, height);
+        return -1;
+    }
 
-	public Component.BaselineResizeBehavior getBaselineResizeBehavior(JComponent c) {
-		super.getBaselineResizeBehavior(c);
-		return Component.BaselineResizeBehavior.OTHER;
-	}
+    public Component.BaselineResizeBehavior getBaselineResizeBehavior(JComponent c) {
+        super.getBaselineResizeBehavior(c);
+        return Component.BaselineResizeBehavior.OTHER;
+    }
 
-	protected String layoutCL(JLabel label, FontMetrics fontMetrics, String text, Icon icon, Rectangle viewR,
-			Rectangle iconR, Rectangle textR) {
-		this.verticalViewR = transposeRectangle(viewR, this.verticalViewR);
-		this.verticalIconR = transposeRectangle(iconR, this.verticalIconR);
-		this.verticalTextR = transposeRectangle(textR, this.verticalTextR);
+    protected String layoutCL(JLabel label, FontMetrics fontMetrics, String text, Icon icon, Rectangle viewR,
+                              Rectangle iconR, Rectangle textR) {
+        this.verticalViewR = transposeRectangle(viewR, this.verticalViewR);
+        this.verticalIconR = transposeRectangle(iconR, this.verticalIconR);
+        this.verticalTextR = transposeRectangle(textR, this.verticalTextR);
 
-		text = super.layoutCL(label, fontMetrics, text, icon, this.verticalViewR, this.verticalIconR,
-				this.verticalTextR);
+        text = super.layoutCL(label, fontMetrics, text, icon, this.verticalViewR, this.verticalIconR,
+                this.verticalTextR);
 
-		viewR = copyRectangle(this.verticalViewR, viewR);
-		iconR = copyRectangle(this.verticalIconR, iconR);
-		textR = copyRectangle(this.verticalTextR, textR);
-		return text;
-	}
+        viewR = copyRectangle(this.verticalViewR, viewR);
+        iconR = copyRectangle(this.verticalIconR, iconR);
+        textR = copyRectangle(this.verticalTextR, textR);
+        return text;
+    }
 
-	public void paint(Graphics g, JComponent c) {
-		Graphics2D g2 = (Graphics2D) g.create();
-		if (this.clockwise)
-			g2.rotate(1.570796326794897D, c.getSize().width / 2, c.getSize().width / 2);
-		else {
-			g2.rotate(-1.570796326794897D, c.getSize().height / 2, c.getSize().height / 2);
-		}
-		super.paint(g2, c);
-	}
+    public void paint(Graphics g, JComponent c) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        if (this.clockwise)
+            g2.rotate(1.570796326794897D, c.getSize().width / 2, c.getSize().width / 2);
+        else {
+            g2.rotate(-1.570796326794897D, c.getSize().height / 2, c.getSize().height / 2);
+        }
+        super.paint(g2, c);
+    }
 
-	public Dimension getPreferredSize(JComponent c) {
-		return transposeDimension(super.getPreferredSize(c));
-	}
+    public Dimension getPreferredSize(JComponent c) {
+        return transposeDimension(super.getPreferredSize(c));
+    }
 
-	public Dimension getMaximumSize(JComponent c) {
-		return transposeDimension(super.getMaximumSize(c));
-	}
+    public Dimension getMaximumSize(JComponent c) {
+        return transposeDimension(super.getMaximumSize(c));
+    }
 
-	public Dimension getMinimumSize(JComponent c) {
-		return transposeDimension(super.getMinimumSize(c));
-	}
+    public Dimension getMinimumSize(JComponent c) {
+        return transposeDimension(super.getMinimumSize(c));
+    }
 
-	private Dimension transposeDimension(Dimension from) {
-		return new Dimension(from.height, from.width + 2);
-	}
+    private Dimension transposeDimension(Dimension from) {
+        return new Dimension(from.height, from.width + 2);
+    }
 
-	private Rectangle transposeRectangle(Rectangle from, Rectangle to) {
-		if (to == null) {
-			to = new Rectangle();
-		}
-		to.x = from.y;
-		to.y = from.x;
-		to.width = from.height;
-		to.height = from.width;
-		return to;
-	}
+    private Rectangle transposeRectangle(Rectangle from, Rectangle to) {
+        if (to == null) {
+            to = new Rectangle();
+        }
+        to.x = from.y;
+        to.y = from.x;
+        to.width = from.height;
+        to.height = from.width;
+        return to;
+    }
 
-	private Rectangle copyRectangle(Rectangle from, Rectangle to) {
-		if (to == null) {
-			to = new Rectangle();
-		}
-		to.x = from.x;
-		to.y = from.y;
-		to.width = from.width;
-		to.height = from.height;
-		return to;
-	}
+    private Rectangle copyRectangle(Rectangle from, Rectangle to) {
+        if (to == null) {
+            to = new Rectangle();
+        }
+        to.x = from.x;
+        to.y = from.y;
+        to.width = from.width;
+        to.height = from.height;
+        return to;
+    }
 
 }

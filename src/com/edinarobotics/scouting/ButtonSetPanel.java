@@ -11,69 +11,69 @@ import javax.swing.JToggleButton;
 
 public class ButtonSetPanel extends JPanel {
 
-	private ArrayList<JToggleButton> buttonList;
-	private ButtonGroup buttonGroup;
-	private JLabel label;
+    private ArrayList<JToggleButton> buttonList;
+    private ButtonGroup buttonGroup;
+    private JLabel label;
 
-	public ButtonSetPanel(ArrayList<String> buttonNames, String label) {
-		this.buttonList = new ArrayList();
-		for (String s : buttonNames) {
-			this.buttonList.add(new JToggleButton(s));
-		}
+    public ButtonSetPanel(ArrayList<String> buttonNames, String label) {
+        this.buttonList = new ArrayList();
+        for (String s : buttonNames) {
+            this.buttonList.add(new JToggleButton(s));
+        }
 
-		this.label = new JLabel(label + "   ");
-		initialize();
-	}
+        this.label = new JLabel(label + "   ");
+        initialize();
+    }
 
-	private void initialize() {
-		setLayout(new GridBagLayout());
-		this.label.setFont(new Font("SansSerif", 1, 14));
-		add(this.label);
+    private void initialize() {
+        setLayout(new GridBagLayout());
+        this.label.setFont(new Font("SansSerif", 1, 14));
+        add(this.label);
 
-		this.buttonGroup = new ButtonGroup();
+        this.buttonGroup = new ButtonGroup();
 
-		boolean first = true;
+        boolean first = true;
 
-		for (JToggleButton tb : this.buttonList) {
-			if (first) {
-				tb.setSelected(true);
-				first = false;
-			} else {
-				tb.setSelected(false);
-			}
-			tb.setFont(new Font("SansSerif", 0, 12));
-			tb.setFocusable(false);
-			this.buttonGroup.add(tb);
-			add(tb);
-		}
-	}
+        for (JToggleButton tb : this.buttonList) {
+            if (first) {
+                tb.setSelected(true);
+                first = false;
+            } else {
+                tb.setSelected(false);
+            }
+            tb.setFont(new Font("SansSerif", 0, 12));
+            tb.setFocusable(false);
+            this.buttonGroup.add(tb);
+            add(tb);
+        }
+    }
 
-	public String getSelected() {
-		for (JToggleButton tb : this.buttonList) {
-			if (tb.isSelected())
-				return tb.getText();
-		}
-		return "";
-	}
+    public String getSelected() {
+        for (JToggleButton tb : this.buttonList) {
+            if (tb.isSelected())
+                return tb.getText();
+        }
+        return "";
+    }
 
-	public void setSelected(int i) {
-		((JToggleButton) this.buttonList.get(i)).setSelected(true);
-	}
+    public void setSelected(int i) {
+        ((JToggleButton) this.buttonList.get(i)).setSelected(true);
+    }
 
-	public JToggleButton getFirstButton() {
-		return (JToggleButton) this.buttonList.get(0);
-	}
+    public JToggleButton getFirstButton() {
+        return (JToggleButton) this.buttonList.get(0);
+    }
 
-	public void reset() {
-		boolean first = true;
+    public void reset() {
+        boolean first = true;
 
-		for (JToggleButton tb : this.buttonList)
-			if (first) {
-				tb.setSelected(true);
-				first = false;
-			} else {
-				tb.setSelected(false);
-			}
-	}
+        for (JToggleButton tb : this.buttonList)
+            if (first) {
+                tb.setSelected(true);
+                first = false;
+            } else {
+                tb.setSelected(false);
+            }
+    }
 
 }

@@ -6,18 +6,19 @@ import javax.swing.text.PlainDocument;
 
 public class JTextFieldLimit extends PlainDocument {
 
-	private int limit;
+    private int limit;
 
-	JTextFieldLimit(int limit) {
-		this.limit = limit;
-	}
+    JTextFieldLimit(int limit) {
+        this.limit = limit;
+    }
 
-	public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
-		if (str == null) {
-			return;
-		}
-		if (getLength() + str.length() <= this.limit)
-			super.insertString(offset, str, attr);
-	}
+    public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
+        if (str == null) {
+            return;
+        }
+
+        if (getLength() + str.length() <= this.limit)
+            super.insertString(offset, str, attr);
+    }
 
 }
