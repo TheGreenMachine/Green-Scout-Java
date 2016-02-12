@@ -2,6 +2,7 @@ package com.edinarobotics.greenscout.panel;
 
 import com.edinarobotics.greenscout.GreenScout;
 import com.edinarobotics.greenscout.document.JTextFieldLimit;
+import org.jdesktop.swingx.prompt.PromptSupport;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -37,11 +38,15 @@ public class FooterPanel extends JPanel {
         notes = new JTextArea(4, 60);
         notes.setForeground(Color.GRAY);
         notes.setLineWrap(true);
-        notes.setText("Put your notes here.");
         notes.setPreferredSize(new Dimension(200, 20));
         notes.setBounds(100, 100, 200, 20);
         notes.setAlignmentX(100);
         notes.setBorder(new MatteBorder(1, 1, 1, 1, Color.GRAY));
+
+        //Placeholder for Notes TextArea
+        PromptSupport.setPrompt("Put your notes here.", notes);
+        PromptSupport.setFontStyle(Font.BOLD, notes);
+
         add(notes, BorderLayout.WEST);
 
         JPanel panel = new JPanel(new GridLayout(2, 3));
